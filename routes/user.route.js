@@ -1,6 +1,9 @@
 const express = require('express');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
+const { request } = require('express');
+const userModel = require('../models/user.model');
+const blogModel = require('../models/blog.model')
 require('dotenv').config();
 
 const userRoute = express.Router()
@@ -46,5 +49,35 @@ userRoute.post(
         )(req, res, next);
     }
 );
+
+userRoute.post('/myblogs/:id', async(req,res)=>{
+    try{
+        const body = req.body
+        const Id = req.params.id
+        const blog = await blogModel.create(body)
+        if(!blog){
+            return res.status(404).json({ status: false, blog: null })
+        }
+        const pop = await userModel.findOneAndUpdate({_id: Id},{blogs: blog._id},{new: true})
+        res.send({msg: 'created successfully'},{data: pop})
+
+    }catch(err){
+        console.log(err)
+        res.json(err)
+    }
+
+})
+
+userRoute.get('/myblogs/:id', async(req,res)=>{
+    try{
+        const Id = req.params.id
+        const blog = await userModel.findOne({_id: Id}).populate('blogs')
+        res.status(200).json(blog)
+
+    }catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
 
 module.exports = userRoute

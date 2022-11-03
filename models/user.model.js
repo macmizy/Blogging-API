@@ -20,6 +20,11 @@ const userSchema = new Schema({
     last_name: {
         type: String,
         required: true
+    },
+
+    blogs: {
+        type: Schema.Types.ObjectId,
+        ref: 'blogs'
     }
 
 })
