@@ -23,7 +23,7 @@ const userSchema = new Schema({
     },
 
     blogs: {
-        type: Schema.Types.ObjectId,
+        type: [Schema.Types.ObjectId],
         ref: 'blogs'
     }
 

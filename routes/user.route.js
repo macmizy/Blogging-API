@@ -1,7 +1,6 @@
 const express = require('express');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
-const { request } = require('express');
 const userModel = require('../models/user.model');
 const blogModel = require('../models/blog.model')
 require('dotenv').config();
@@ -50,16 +49,33 @@ userRoute.post(
     }
 );
 
-userRoute.post('/myblogs/:id', async(req,res)=>{
+userRoute.post('/blog/:id', async(req,res)=>{
     try{
         const body = req.body
         const Id = req.params.id
-        const blog = await blogModel.create(body)
+        function readings(){
+            let wpm = 200
+            let wordcount = body.body.split(" ").length
+            const division = wordcount / wpm
+            if(division <= 1){
+                const newtime = division * 60
+                let readingTime = `${newtime} seconds`
+                return readingTime
+            }
+            let time = Math.round(division)
+            let readingTime = `${time} minutes`
+            return readingTime
+        }
+        const newBody= {...body,userId:Id,reading_time: readings(),}
+        const blog = await blogModel.create(newBody)
         if(!blog){
             return res.status(404).json({ status: false, blog: null })
         }
-        const pop = await userModel.findOneAndUpdate({_id: Id},{blogs: blog._id},{new: true})
-        res.send({msg: 'created successfully'},{data: pop})
+
+        const user = await userModel.findByIdAndUpdate(Id, {blogs: blog._id},)
+        user.save()
+        
+        res.status(200).send(blog)
 
     }catch(err){
         console.log(err)
@@ -68,15 +84,39 @@ userRoute.post('/myblogs/:id', async(req,res)=>{
 
 })
 
-userRoute.get('/myblogs/:id', async(req,res)=>{
+
+userRoute.get('/blog/:id', async(req,res)=>{
     try{
+        const {page, state} = req.query
+        console.log(req.query)
         const Id = req.params.id
-        const blog = await userModel.findOne({_id: Id}).populate('blogs')
-        res.status(200).json(blog)
+        const limit = 2
+        const skip = (page-1) * limit
+
+        if(state == "draft"){
+            const blogs = await blogModel.find({userId: Id, state: 'draft'}).limit(limit).skip(skip)
+            return res.status(200).json(blogs)
+        }
+        if(state == "published"){
+            const blogs = await blogModel.find({userId: Id, state: 'published'}).limit(limit).skip(skip)
+            return res.status(200).json(blogs)
+        }
+        const blogs = await blogModel.find({userId: Id}).limit(limit).skip(skip)
+        res.status(200).json(blogs)
 
     }catch(err){
         console.log(err)
         res.send(err)
+    }
+})
+
+userRoute.get('/allusers', async(req,res)=>{
+    try{
+        const allusers = await userModel.find()
+        return res.send(allusers)
+    }catch(err){
+        console.log(err)
+        return res.send(err)
     }
 })
 

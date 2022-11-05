@@ -30,11 +30,16 @@ const blogSchema = new Schema({
 
     },
     read_count: {
-        type: Number
+        type: Number,
+        default: 0
     },
     reading_time:{
-        type: Number
+        type: String
     },
+    userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'users'
+    }
     
 },{timestamps: true}
 )
