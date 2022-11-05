@@ -23,7 +23,9 @@ blogRoute.get('/',async(req,res)=>{
             const blog = await blogModel.find({state: 'published'}).limit(limit).skip(skip).sort({read_count: 1})
             return res.status(200).send(blog)
         }
-        const blog = await blogModel.find({state: 'published'}).and({
+        if(search){
+
+            const blog = await blogModel.find({state: 'published'}).and({
             $or: [
               {
                 title: { $regex: search, $options: "i" },
@@ -35,8 +37,12 @@ blogRoute.get('/',async(req,res)=>{
                 tags: { $regex: search, $options: "i" },
               }
             ],
-        }).limit(limit).skip(skip)
+            }).limit(limit).skip(skip)
+            return res.status(200).send(blog)
+        }
+        const blog = await blogModel.find({state: 'published'}).limit(limit).skip(skip)
         return res.status(200).send(blog)
+        
 
     }catch(err){
         console.log(err)

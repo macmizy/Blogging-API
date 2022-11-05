@@ -36,9 +36,9 @@ userRoute.post(
 
                         const body = { _id: user._id, email: user.email };
                         
-                        const token = jwt.sign({ user: body }, process.env.SECRET_KEY, { expiresIn: "2h",});
+                        const token = jwt.sign({ user: body }, process.env.SECRET_KEY, { expiresIn: "1h",});
 
-                        return res.json({ token });
+                        return res.status(200).json({ token });
                     }
                 );
             } catch (error) {
@@ -72,7 +72,7 @@ userRoute.post('/blog/:id', async(req,res)=>{
             return res.status(404).json({ status: false, blog: null })
         }
 
-        const user = await userModel.findByIdAndUpdate(Id, {blogs: blog._id},)
+        const user = await userModel.findByIdAndUpdate(Id, {$push:{blogsId: blog._id}},{new: true})
         user.save()
         
         res.status(200).send(blog)
