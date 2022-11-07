@@ -19,7 +19,7 @@ userRoute.post(
 userRoute.get('/allusers', async(req,res)=>{
     try{
         const allusers = await userModel.find()
-        return res.send(allusers)
+        return res.status(200).send(allusers)
     }catch(err){
         console.log(err)
         return res.status(400).send({
