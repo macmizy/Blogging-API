@@ -328,7 +328,7 @@ Success
 }
 
 ```
-### Update Blog
+### Update Blog State
 
 - Route: /blog/updateState/:BlogId
 - Method: PATCH
