@@ -16,27 +16,27 @@ blogRoute.get('/', blogcontrol.getBlog)
 // GET SINGLE BLOG BY ID LOGGED IN OR NOT LOGGED IN
 
 
-blogRoute.get('/:id', blogcontrol.getSingleBlog)
+blogRoute.get('/:blogid', blogcontrol.getSingleBlog)
 
 // OWNER CREATE BLOG
 
-blogRoute.post('/create/:id', passport.authenticate('jwt', { session: false }), blogcontrol.createBlog )
+blogRoute.post('/create/:userid', passport.authenticate('jwt', { session: false }), blogcontrol.createBlog )
 
 // GET OWNER'S BLOG POSTS
 
-blogRoute.get('/myblog/:id', passport.authenticate('jwt', { session: false }), blogcontrol.getOwnerBlogs)
+blogRoute.get('/myblog/:userid', passport.authenticate('jwt', { session: false }), blogcontrol.getOwnerBlogs)
 
 // UPDATE BLOG STATE
 
-blogRoute.patch('/updateState/:id', passport.authenticate('jwt', { session: false }), blogcontrol.updateBlogState)
+blogRoute.patch('/updateState/:blogid', passport.authenticate('jwt', { session: false }), blogcontrol.updateBlogState)
 
 // UPDATE BLOG POST
 
-blogRoute.patch('/updatePost/:id', passport.authenticate('jwt', { session: false }), blogcontrol.updateBlogPost)
+blogRoute.patch('/updatePost/:blogid', passport.authenticate('jwt', { session: false }), blogcontrol.updateBlogPost)
 
 // DELETE A PARTICULAR BLOG POST 
 
-blogRoute.delete('/deleteblog/:id', passport.authenticate('jwt', { session: false }), blogcontrol.deleteBlogPost)
+blogRoute.delete('/deleteblog/:blogid', passport.authenticate('jwt', { session: false }), blogcontrol.deleteBlogPost)
 
 
 module.exports = blogRoute

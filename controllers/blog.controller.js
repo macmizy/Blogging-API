@@ -53,11 +53,21 @@ async function getBlog(req,res,next){
 
 async function getSingleBlog(req,res,next){
     try{
-        const Id = req.params.id
-        const blog = await blogModel.find({_id: Id, state: 'published'})
+        const blogId = req.params.blogid
+        const blog = await blogModel.findById(blogId)
+
+        if(!blog){
+                return res.status(404).json({message: "Blog Not Found"})
+        }if (blog.state != 'published') {
+            return res.status(403).json({
+                status: false,
+                error: 'Requested article is not published'
+            })
+        }
+
         blog.read_count++
         await blog.save()
-         const userId = blog.userId
+        const userId = blog.userId
          const user = await userModel.findById(userId)
         return res.send({blog: blog, user: user})
 
@@ -74,7 +84,7 @@ async function getSingleBlog(req,res,next){
 async function createBlog(req,res,next){
     try{
         const body = req.body
-        const Id = req.params.id
+        const userId = req.params.userid
         function readings(){
             let wpm = 200
             let wordcount = body.body.split(" ").length
@@ -89,13 +99,13 @@ async function createBlog(req,res,next){
             let readingTime = `${time} minutes`
             return readingTime
         }
-        const newBody= {...body,userId:Id,reading_time: readings(),}
+        const newBody= {...body,userId:userId,reading_time: readings(),}
         const blog = await blogModel.create(newBody)
         if(!blog){
             return res.status(404).json({ status: false, blog: null })
         }
 
-        const user = await userModel.findByIdAndUpdate(Id, {$push:{blogsId: blog._id}},{new: true})
+        const user = await userModel.findByIdAndUpdate(userId, {$push:{blogsId: blog._id}},{new: true})
         user.save()
         
         res.status(200).send(blog)
@@ -113,19 +123,19 @@ async function createBlog(req,res,next){
 async function getOwnerBlogs(req,res,next){
     try{
         const {page, state} = req.query
-        const Id = req.params.id
+        const userId = req.params.userid
         const limit = 2
         const skip = (page-1) * limit
 
         if(state == "draft"){
-            const blogs = await blogModel.find({userId: Id, state: 'draft'}).limit(limit).skip(skip)
+            const blogs = await blogModel.find({userId: userId, state: 'draft'}).limit(limit).skip(skip)
             return res.status(200).json(blogs)
         }
         if(state == "published"){
-            const blogs = await blogModel.find({userId: Id, state: 'published'}).limit(limit).skip(skip)
+            const blogs = await blogModel.find({userId: userId, state: 'published'}).limit(limit).skip(skip)
             return res.status(200).json(blogs)
         }
-        const blogs = await blogModel.find({userId: Id}).limit(limit).skip(skip)
+        const blogs = await blogModel.find({userId: userId}).limit(limit).skip(skip)
         res.status(200).json(blogs)
 
     }catch(err){
@@ -140,10 +150,10 @@ async function getOwnerBlogs(req,res,next){
 async function updateBlogState(req,res,next){
     try{
         const state  = req.body.state
-        const Id = req.params.id
-        const user = await userModel.find({blogsId: {$in: Id}})
+        const blogId = req.params.blogid
+        const user = await userModel.find({blogsId: {$in: blogId}})
         if(user){
-            const updateState = await blogModel.findByIdAndUpdate({_id: Id},{state: state},{new: true})
+            const updateState = await blogModel.findByIdAndUpdate({_id: blogId},{state: state},{new: true})
             return res.status(200).send(updateState)
         }
           
@@ -159,10 +169,10 @@ async function updateBlogState(req,res,next){
 async function updateBlogPost(req,res,next){
     try{
         const body  = req.body
-        const Id = req.params.id
-        const user = await userModel.find({blogsId: {$in: Id}})
+        const blogId = req.params.blogid
+        const user = await userModel.find({blogsId: {$in: blogId}})
         if(user){
-            const updateBlog = await blogModel.findByIdAndUpdate({_id: Id},{...body},{new: true})
+            const updateBlog = await blogModel.findByIdAndUpdate({_id: blogId},{...body},{new: true})
             return res.status(200).send(updateBlog)
         }
           
@@ -177,10 +187,10 @@ async function updateBlogPost(req,res,next){
 
 async function deleteBlogPost(req,res,next){
     try{
-        const Id  = req.params.id
-        const user = await userModel.find({blogsId: {$in: Id}})
+        const blogId  = req.params.blogid
+        const user = await userModel.find({blogsId: {$in: blogId}})
         if(user){
-            const blog = await blogModel.deleteOne({ _id: Id})
+            const blog = await blogModel.deleteOne({ _id: blogId})
             return res.json({ status: true, ...blog })
         }
         
