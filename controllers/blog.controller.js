@@ -147,25 +147,6 @@ async function getOwnerBlogs(req,res,next){
     }
 }
 
-async function updateBlogState(req,res,next){
-    try{
-        const state  = req.body.state
-        const blogId = req.params.blogid
-        const user = await userModel.find({blogsId: {$in: blogId}})
-        if(user){
-            const updateState = await blogModel.findByIdAndUpdate({_id: blogId},{state: state},{new: true})
-            return res.status(200).send(updateState)
-        }
-          
-    }catch(err){
-        console.log(err)
-        return res.status(400).send({
-            status: "false",
-            message: "Unable to update blog state"
-        })
-    }
-}
-
 async function updateBlogPost(req,res,next){
     try{
         const body  = req.body
@@ -213,7 +194,6 @@ module.exports ={
     getSingleBlog,
     createBlog,
     getOwnerBlogs,
-    updateBlogState,
     updateBlogPost,
     deleteBlogPost
 }
