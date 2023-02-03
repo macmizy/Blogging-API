@@ -2,18 +2,14 @@ const express = require('express');
 const passport = require('passport');
 const userModel = require('../models/user.model');
 const {userLogin,userSignup} = require('../controllers/user.controller')
+const validateUser = require('../models/user.validator')
 require('dotenv').config();
 
 const userRoute = express.Router()
 
-userRoute.post(
-    '/signup',
-    passport.authenticate('signup', { session: false }), userSignup
-)
+userRoute.post('/signup',validateUser,passport.authenticate('signup', { session: false }), userSignup)
 
-userRoute.post(
-    '/login',userLogin
-)
+userRoute.post('/login',validateUser,userLogin)
 
 
 userRoute.get('/allusers', async(req,res)=>{

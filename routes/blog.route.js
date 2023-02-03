@@ -3,6 +3,7 @@ const blogModel = require('../models/blog.model')
 const userModel = require('../models/user.model')
 const passport = require('passport')
 const blogcontrol = require('../controllers/blog.controller')
+const validateblog = require('../models/blog.validator')
 
 const blogRoute = express.Router()
 
@@ -20,19 +21,15 @@ blogRoute.get('/:blogid', blogcontrol.getSingleBlog)
 
 // OWNER CREATE BLOG
 
-blogRoute.post('/create/:userid', passport.authenticate('jwt', { session: false }), blogcontrol.createBlog )
+blogRoute.post('/create/:userid',validateblog, passport.authenticate('jwt', { session: false }), blogcontrol.createBlog )
 
 // GET OWNER'S BLOG POSTS
 
 blogRoute.get('/myblog/:userid', passport.authenticate('jwt', { session: false }), blogcontrol.getOwnerBlogs)
 
-// UPDATE BLOG STATE
-
-blogRoute.patch('/updateState/:blogid', passport.authenticate('jwt', { session: false }), blogcontrol.updateBlogState)
-
 // UPDATE BLOG POST
 
-blogRoute.patch('/updatePost/:blogid', passport.authenticate('jwt', { session: false }), blogcontrol.updateBlogPost)
+blogRoute.patch('/updateblog/:blogid', passport.authenticate('jwt', { session: false }), blogcontrol.updateBlogPost)
 
 // DELETE A PARTICULAR BLOG POST 
 
