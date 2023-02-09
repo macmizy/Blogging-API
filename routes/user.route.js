@@ -11,6 +11,10 @@ userRoute.post('/signup',validateUser,passport.authenticate('signup', { session:
 
 userRoute.post('/login',validateUser,userLogin)
 
+userRoute.get("/signin",(req,res)=>{
+    res.send('<a href="/auth/google">continue with Google</a>')
+})
+
 
 userRoute.get('/allusers', async(req,res)=>{
     try{
