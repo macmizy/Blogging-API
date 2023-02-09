@@ -4,10 +4,13 @@ const userRoute = require('./routes/user.route')
 const blogRoute = require('./routes/blog.route')
 const session = require('express-session')
 const rateLimit = require('express-rate-limit')
+const helmet = require("helmet");
+const logger = require('./logger/logger')
 require('dotenv').config()
 require('./db').connectToMongoDB()
 require("./authentication/auth")
 require("./authentication/google")
+
 
 const app = express()
 
@@ -28,6 +31,7 @@ const limiter = rateLimit({
 })
 app.use(limiter)
 
+app.use(helmet());
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
@@ -62,12 +66,12 @@ app.get('/logout', (req,res)=>{
 })
 
 app.use((err,req,res,next)=>{
-    console.log(err)
+    logger.error(err.message)
     res.status(500).send('Something broke!')
 })
 
 PORT = process.env.PORT
 
 app.listen(PORT,()=>{
-    console.log(`Server is running on PORT ${PORT}`)
+    logger.info(`Server is running on PORT ${PORT}`)
 })
