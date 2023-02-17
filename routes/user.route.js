@@ -9,7 +9,7 @@ const userRoute = express.Router()
 
 userRoute.post('/signup',validateUser,passport.authenticate('signup', { session: false }), userSignup)
 
-userRoute.post('/login',validateUser,userLogin)
+userRoute.post('/login',userLogin)
 
 userRoute.get("/signin",(req,res)=>{
     res.send('<a href="/auth/google">continue with Google</a>')

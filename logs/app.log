@@ -12,3 +12,42 @@
 {"date":"Fri Feb 10 2023 09:43:06 GMT+0100 (West Africa Standard Time)","error":{"address":"::","code":"EADDRINUSE","errno":-4091,"port":3000,"syscall":"listen"},"exception":true,"level":"error","message":"uncaughtException: listen EADDRINUSE: address already in use :::3000\nError: listen EADDRINUSE: address already in use :::3000\n    at Server.setupListenHandle [as _listen2] (node:net:1372:16)\n    at listenInCluster (node:net:1420:12)\n    at Server.listen (node:net:1508:7)\n    at Function.listen (C:\\Users\\Zbook\\Documents\\Blogging API\\node_modules\\express\\lib\\application.js:635:24)\n    at Object.<anonymous> (C:\\Users\\Zbook\\Documents\\Blogging API\\app.js:75:5)\n    at Module._compile (node:internal/modules/cjs/loader:1105:14)\n    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1159:10)\n    at Module.load (node:internal/modules/cjs/loader:981:32)\n    at Function.Module._load (node:internal/modules/cjs/loader:822:12)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)","os":{"loadavg":[0,0,0],"uptime":624151},"process":{"argv":["C:\\Program Files\\nodejs\\node.exe","C:\\Users\\Zbook\\Documents\\Blogging API\\app.js"],"cwd":"C:\\Users\\Zbook\\Documents\\Blogging API","execPath":"C:\\Program Files\\nodejs\\node.exe","gid":null,"memoryUsage":{"arrayBuffers":18516585,"external":25903635,"heapTotal":60506112,"heapUsed":33670088,"rss":82472960},"pid":7688,"uid":null,"version":"v16.16.0"},"stack":"Error: listen EADDRINUSE: address already in use :::3000\n    at Server.setupListenHandle [as _listen2] (node:net:1372:16)\n    at listenInCluster (node:net:1420:12)\n    at Server.listen (node:net:1508:7)\n    at Function.listen (C:\\Users\\Zbook\\Documents\\Blogging API\\node_modules\\express\\lib\\application.js:635:24)\n    at Object.<anonymous> (C:\\Users\\Zbook\\Documents\\Blogging API\\app.js:75:5)\n    at Module._compile (node:internal/modules/cjs/loader:1105:14)\n    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1159:10)\n    at Module.load (node:internal/modules/cjs/loader:981:32)\n    at Function.Module._load (node:internal/modules/cjs/loader:822:12)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)","trace":[{"column":16,"file":"node:net","function":"Server.setupListenHandle [as _listen2]","line":1372,"method":"setupListenHandle [as _listen2]","native":false},{"column":12,"file":"node:net","function":"listenInCluster","line":1420,"method":null,"native":false},{"column":7,"file":"node:net","function":"Server.listen","line":1508,"method":"listen","native":false},{"column":24,"file":"C:\\Users\\Zbook\\Documents\\Blogging API\\node_modules\\express\\lib\\application.js","function":"Function.listen","line":635,"method":"listen","native":false},{"column":5,"file":"C:\\Users\\Zbook\\Documents\\Blogging API\\app.js","function":null,"line":75,"method":null,"native":false},{"column":14,"file":"node:internal/modules/cjs/loader","function":"Module._compile","line":1105,"method":"_compile","native":false},{"column":10,"file":"node:internal/modules/cjs/loader","function":"Module._extensions..js","line":1159,"method":".js","native":false},{"column":32,"file":"node:internal/modules/cjs/loader","function":"Module.load","line":981,"method":"load","native":false},{"column":12,"file":"node:internal/modules/cjs/loader","function":"Module._load","line":822,"method":"_load","native":false},{"column":12,"file":"node:internal/modules/run_main","function":"Function.executeUserEntryPoint [as runMain]","line":77,"method":"executeUserEntryPoint [as runMain]","native":false}]}
 {"level":"info","message":"Server is running on PORT 3000"}
 {"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"error","message":"Username or password is incorrect"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"error","message":"Username or password is incorrect"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
